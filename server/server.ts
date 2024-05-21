@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios";
 import { Request, Response } from "express";
+import { cleanedComplaints } from "helpers/cleanedResponses";
 
 const express = require('express');
 const axios = require("axios");
@@ -14,7 +15,7 @@ const _trendsURL = "https://www.consumerfinance.gov/data-research/consumer-compl
 app.get("/complaints", (req: Request, res: Response) => {
     axios.get(_baseURL)
     .then((response: AxiosResponse) => {
-        res.send(response.data.hits.hits)
+        res.send(cleanedComplaints(response.data.hits.hits))
     })
 })
 
