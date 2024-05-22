@@ -3,8 +3,7 @@ import { render, screen } from "@testing-library/react";
 import ComplaintCard from "./ComplaintCard";
 
 describe("ComplaintCard", () => {
-    test("ComplaintCard renders correctly", () => {
-        it("matches the snapshot", () => {
+    it("matches the snapshot", () => {
         const complaints = [
             {
             id: "1",
@@ -30,8 +29,7 @@ describe("ComplaintCard", () => {
             },
         ];
         render(<ComplaintCard complaints={complaints}/>);
-        const linkElement = screen.getByText(/learn react/i);
+        const linkElement = screen.getByText(/Date/i);
         expect(linkElement).toBeInTheDocument();
-        });
     });
 });
