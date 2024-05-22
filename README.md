@@ -25,7 +25,7 @@ This application calls a [Consumer Complaint API](https://cfpb.github.io/api/ccd
     cd geode-health-assessment
     ```
 
-3. Install the dependencies for both the client and server:
+3. Navigate to the directories of both the client and server and install the dependencies for each:
 
     ```bash
     npm install
