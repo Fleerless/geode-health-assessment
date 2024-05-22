@@ -22,7 +22,7 @@ export const TableRow = styled.div<{ isEven?: boolean }>`
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        height: 60px;
+        height: 100px;
         padding: 5px;
         font-size: 0.9em;
     }

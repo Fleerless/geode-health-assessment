@@ -10,6 +10,12 @@ interface ComplaintCardProps {
 }
 
 const ComplaintCard: React.FC<ComplaintCardProps> = ({ complaints }) => {
+    const truncateComplaint = (complaint: string) => {
+      const complaintLength = 90;
+      const isComplaintTruncated = complaint.length > complaintLength
+      const truncatedComplaint = `${complaint.slice(0, complaintLength)}${isComplaintTruncated && '...'}`;
+      return {truncatedComplaint, isComplaintTruncated};
+    }
     return (
       <Table>
         <TableHeader>
@@ -28,7 +34,7 @@ const ComplaintCard: React.FC<ComplaintCardProps> = ({ complaints }) => {
             <TableData>{complaint.date}</TableData>
             <TableData>{complaint.id}</TableData>
             <TableData>{complaint.company}</TableData>
-            <TableData>{complaint.complaint}</TableData>
+            <TableData>{truncateComplaint(complaint.complaint).truncatedComplaint}</TableData>
             <TableData>{complaint.subIssue}</TableData>
             <TableData>{complaint.companyResponse}</TableData>
             <TableData>{complaint.product}</TableData>

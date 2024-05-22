@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from "axios";
 import { Request, Response } from "express";
-import { cleanedComplaints } from "helpers/cleanedResponses";
+import { cleanComplaints, sortByDate } from "helpers/cleanedResponses";
 
 const express = require('express');
 const axios = require("axios");
@@ -12,25 +12,27 @@ const PORT = process.env.PORT ?? 5050;
 const _baseURL = "https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/"
 const _trendsURL = `${_baseURL}trends/`
 
-app.get("/complaints", (req: Request, res: Response) => {
-    const searchTerms = encodeURI(req?.body?.searchTerms);
-    const _searchURL = `${_baseURL}?searchTerm=${searchTerms}`;
+app.get("/complaints/:searchTerms", (req: Request, res: Response) => {
+    const searchTerms = req?.params?.searchTerms;
+    const searchTermsURI = encodeURI(req?.params?.searchTerms);
+    const _searchURL = `${_baseURL}?search_term=${searchTermsURI}`;
 
     axios
-        .get(searchTerms ? _searchURL : _baseURL)
+        .get(!!searchTerms ? _searchURL : _baseURL)
         .then((response: AxiosResponse) => {
-        res.send(cleanedComplaints(response?.data?.hits?.hits) || []);
+            const hits = cleanComplaints(response?.data?.hits?.hits);
+            const dateSortedComplaints = sortByDate(hits);
+            res.send(dateSortedComplaints || []);
         })
         .catch((error: AxiosError) => {
-        console.log("Error:", error.message);
-        res.send(Promise.reject(error));
+            console.log("Error:", error.message);
+            res.send(Promise.reject(error));
         });
 });
 
 app.get("/trends", (req: Request, res: Response) => {
     axios.get(_trendsURL)
     .then((response: AxiosResponse) => {
-        console.log(JSON.stringify(response.data));
         res.send(response.data || []);
     })
     .catch(

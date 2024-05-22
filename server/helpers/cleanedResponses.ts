@@ -3,7 +3,7 @@ import { ApiComplaintType } from "types/ApiTypes";
 import { CleanedComplaintsType } from "types/FunctionTypes";
 import moment from "moment";
 
-export const cleanedComplaints: CleanedComplaintsType = (complaints) => {
+export const cleanComplaints: CleanedComplaintsType = (complaints) => {
     return complaints?.map((complaint: ApiComplaintType): ClientComplaintType => {
         return {
             date: moment(complaint._source.date_received).format("MM/DD/YYYY"),
@@ -23,3 +23,11 @@ export const cleanedComplaints: CleanedComplaintsType = (complaints) => {
         };
     });
 }
+
+export const sortByDate = (complaints: ClientComplaintType[]) => {
+    return complaints.sort(
+        (a: ClientComplaintType, b: ClientComplaintType) => {
+            return new Date(a.date).getTime() - new Date(b.date).getTime();
+        }
+    );
+}   
