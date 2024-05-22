@@ -16,6 +16,7 @@
     "axios": "^1.7.1",
     "express": "^4.19.2",
     "helpers": "file:helpers",
+    "moment": "^2.30.1",
     "types": "file:types",
     "typescript": "^5.4.5"
   },

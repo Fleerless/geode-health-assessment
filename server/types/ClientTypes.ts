@@ -1,6 +1,4 @@
-export type ClientComplaintsArrayType = [
-    ClientComplaintType
-]
+export type ClientComplaintsArrayType = ClientComplaintType[]
 
 export type ClientComplaintType = {
     date: string,
