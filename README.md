@@ -67,3 +67,6 @@ This application calls a [Consumer Complaint API](https://cfpb.github.io/api/ccd
 
 To run the tests for both the client and server, use the following command:
 
+```bash
+    npm run test
+    ```
